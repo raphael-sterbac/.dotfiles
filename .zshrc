@@ -38,3 +38,6 @@ export NVM_DIR="$HOME/.nvm"
 
 # opam configuration
 [[ ! -r /home/rsb/.opam/opam-init/init.zsh ]] || source /home/rsb/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+
+# Created by `pipx` on 2025-01-31 10:06:37
+export PATH="$PATH:/home/rsb/.local/bin"

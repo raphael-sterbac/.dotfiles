@@ -167,7 +167,7 @@ awful.screen.connect_for_each_screen(function(s)
     set_wallpaper(s)
 
     -- Each screen has its own tag table.
-    awful.tag({"1", "2", "3"}, s, awful.layout.layouts[1])
+    awful.tag({"1", "2", "3", "4"}, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -259,11 +259,6 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             volume_widget_widget,
-            spotify_widget({
-                dim_when_paused = true,
-                dim_opacity = 0.5,
-                show_tooltip = false
-            }),
             mytextclock,
             spacing = 7,
             layout = wibox.layout.fixed.horizontal,
@@ -367,8 +362,12 @@ globalkeys = gears.table.join(
     awful.key({ modkey },            "r",     function () awful.util.spawn("dmenu_run")  end,
               {description = "run prompt", group = "launcher"}),
 
+    -- screenshot
+    awful.key({ modkey },            "c",     function () awful.spawn.with_shell("gnome-screenshot --area")  end,
+              {description = "run prompt", group = "launcher"}),
+
     -- Launch firefox 
-    awful.key({ modkey },            "b",     function () awful.util.spawn("firefox")  end,
+    awful.key({ modkey },            "b",     function () awful.util.spawn("zen-browser")  end,
               {description = "run prompt", group = "launcher"}),
 
     -- Launch discord 
@@ -469,16 +468,6 @@ for i = 1, 9 do
                         end
                   end,
                   {description = "view tag #"..i, group = "tag"}),
-        -- Toggle tag display.
-        awful.key({ modkey, "Control" }, "#" .. i + 9,
-                  function ()
-                      local screen = awful.screen.focused()
-                      local tag = screen.tags[i]
-                      if tag then
-                         awful.tag.viewtoggle(tag)
-                      end
-                  end,
-                  {description = "toggle tag #" .. i, group = "tag"}),
         -- Move client to tag.
         awful.key({ modkey, "Shift" }, "#" .. i + 9,
                   function ()
@@ -655,8 +644,7 @@ awful.spawn.with_shell("xset m 1 2")
 awful.spawn.with_shell("amixer set Master 55%")
 awful.spawn.with_shell("timedatectl set-timezone Europe/Paris")
 awful.spawn.with_shell("insync start")
-awful.util.spawn("firefox") 
-awful.util.spawn("discord") 
+awful.util.spawn("zen-browser") 
 
 -- Add useless gap to windows
 beautiful.useless_gap = 5 
